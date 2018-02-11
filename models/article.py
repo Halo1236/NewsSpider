@@ -28,7 +28,7 @@ class Article(db.Model):
         self.imgurl = imgurl
 
     def __repr__(self):
-        return '<article_id %r>' % self.id
+        return '<article_id %r>' % self.title
 
     def save(self):
         db.session.add(self)
