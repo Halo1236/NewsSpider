@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 from models import db
@@ -15,9 +15,9 @@ class Topic(db.Model):
     title = db.Column(db.String(140), unique=True, nullable=False, index=True)
     article_url = db.Column(db.String(100), unique=True, nullable=False)
     publish_time = db.Column(db.String(20), index=True)
-    create_time = db.Column(db.DateTime, default=datetime.now,nullable=False)
+    create_time = db.Column(db.DateTime, default=datetime.now, nullable=False)
 
-    def __init__(self, title, url,publish_time):
+    def __init__(self, title, url, publish_time):
         self.publish_time = publish_time
         self.title = title
         self.article_url = url
@@ -38,3 +38,4 @@ class Topic(db.Model):
     def update(self):
         db.session.commit()
         return self
+

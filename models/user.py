@@ -1,10 +1,16 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 from models import db
 
 
 class User(db.Model):
+
+    __table_args__ = {
+        'mysql_engine': 'InnoDB',
+        'mysql_charset': 'utf8mb4'
+    }
+
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     isadmin = db.Column(db.Integer, nullable=False, default=0, index=True)
     username = db.Column(db.String(32), nullable=False, unique=True, index=True)

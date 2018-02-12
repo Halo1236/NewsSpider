@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-import scrapy
+
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
-from pymongo.mongo_client import MongoClient
-from pymongo.errors import DuplicateKeyError
+from pymongo import MongoClient
+
 from bs4 import BeautifulSoup as BS
 import urllib
-from lxml import etree, html
+from lxml import , html
 from lxml.etree import tostring
 import sys
 import time
@@ -33,6 +33,7 @@ class priceInformation(object):
     page = 1
     datas = []
     is_crawled = False
+
 
     def __init__(self):
         self.host = '127.0.0.1'
@@ -80,7 +81,7 @@ class priceInformation(object):
         # else:
         #     self.PROXY = ['121.237.6.20:8118','219.137.206.66:53281']
         #     self.options.add_argument('--proxy-server=%s' % self.PROXY[index-1])
-        self.driver = webdriver.Chrome("C:\Users\sunxufeng\Downloads\chromedriver.exe", chrome_options=self.options)
+        self.driver = webdriver.Chrome(chrome_options=self.options)
         self.driver.implicitly_wait(10)
         count = 0
         item_times = self.collection_time.find().limit(1)
@@ -132,30 +133,30 @@ class priceInformation(object):
             pass
         print 'finish'
 
-    def start_test(self, index):
-        # self.startCategory_Product('http://nc.mofcom.gov.cn/channel/gxdj/jghq/jg_list.shtml')
-
-        # items = self.collection.find()
-        # for item in items:
-        #     self.startCategory_Product_Child('http://nc.mofcom.gov.cn/channel/gxdj/jghq/jg_list.shtml?par_craft_index=' + item['product_id'] + '&craft_index=&startTime=2017-05-07&endTime=2017-08-05&par_p_index=&p_index=&keyword=',item)
-
-        # items = self.collection.find().limit(1)
-        # for item in items:
-        #     self.startCategory_Province('http://nc.mofcom.gov.cn/channel/gxdj/jghq/jg_list.shtml?par_craft_index=' + item['product_id'] + '&craft_index=' + item['product_id_child']  + '&startTime=2017-05-07&endTime=2017-08-05&par_p_index=&p_index=&keyword=')
-
-        # self.add_Province()
-
-        items = self.collection_with_province.find(no_cursor_timeout=True).skip((index - 1) * 2534).limit(1)
-        # items = self.collection_with_province.find(no_cursor_timeout=True)
-        for item in items:
-            if item.has_key('is_crawled'):
-                if item['is_crawled'] == 1:
-                    pass
-            else:
-                self.startFinal('http://nc.mofcom.gov.cn/channel/jghq2017/price_list.shtml?par_craft_index=' + item[
-                    'product_id'] + '&craft_index=' + item[
-                                    'product_id_child'] + '&startTime=2017-05-07&endTime=2017-08-29&par_p_index=' +
-                                item['product_province_id'] + '&p_index=&keyword=&page=' + str(), item)
+    # def start_test(self, index):
+    #     # self.startCategory_Product('http://nc.mofcom.gov.cn/channel/gxdj/jghq/jg_list.shtml')
+    #
+    #     # items = self.collection.find()
+    #     # for item in items:
+    #     #     self.startCategory_Product_Child('http://nc.mofcom.gov.cn/channel/gxdj/jghq/jg_list.shtml?par_craft_index=' + item['product_id'] + '&craft_index=&startTime=2017-05-07&endTime=2017-08-05&par_p_index=&p_index=&keyword=',item)
+    #
+    #     # items = self.collection.find().limit(1)
+    #     # for item in items:
+    #     #     self.startCategory_Province('http://nc.mofcom.gov.cn/channel/gxdj/jghq/jg_list.shtml?par_craft_index=' + item['product_id'] + '&craft_index=' + item['product_id_child']  + '&startTime=2017-05-07&endTime=2017-08-05&par_p_index=&p_index=&keyword=')
+    #
+    #     # self.add_Province()
+    #
+    #     items = self.collection_with_province.find(no_cursor_timeout=True).skip((index - 1) * 2534).limit(1)
+    #     # items = self.collection_with_province.find(no_cursor_timeout=True)
+    #     for item in items:
+    #         if item.has_key('is_crawled'):
+    #             if item['is_crawled'] == 1:
+    #                 pass
+    #         else:
+    #             self.startFinal('http://nc.mofcom.gov.cn/channel/jghq2017/price_list.shtml?par_craft_index=' + item[
+    #                 'product_id'] + '&craft_index=' + item[
+    #                                 'product_id_child'] + '&startTime=2017-05-07&endTime=2017-08-29&par_p_index=' +
+    #                             item['product_province_id'] + '&p_index=&keyword=&page=' + str(), item)
 
     def startScrapy(self, index, url, item):
         time.sleep(1)

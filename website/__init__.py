@@ -23,3 +23,10 @@ handler.setFormatter(
 
 handler.setLevel(logging.WARNING)
 app.logger.addHandler(handler)
+
+from website import router
+
+# from spider.news_spider import News_spider
+#
+# topic = News_spider()
+# topic.start()

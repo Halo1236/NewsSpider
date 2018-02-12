@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 from models import db
@@ -6,6 +6,7 @@ from datetime import datetime
 
 
 class Article(db.Model):
+
     __table_args__ = {
         'mysql_engine': 'InnoDB',
         'mysql_charset': 'utf8mb4'
@@ -16,7 +17,7 @@ class Article(db.Model):
     publish_time = db.Column(db.String(20), nullable=False, index=True)
     publisher = db.Column(db.String(20), nullable=True)
     imgurl = db.Column(db.String(100), nullable=True)
-    content = db.Column(db.Text, nullable=False, index=True)
+    content = db.Column(db.Text(1600), nullable=False, index=True)
     create_time = db.Column(db.DateTime, default=datetime.now, nullable=False)\
 
 

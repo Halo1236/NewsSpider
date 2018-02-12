@@ -2,12 +2,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals, print_function
 
-from flask import Flask
-
-app = Flask(__name__)
+from models import *
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def hello_world():
     return 'Hello World!'
 
@@ -22,7 +20,3 @@ def page_not_found(error):
 def unhandled_exception(error):
     app.logger.error('Unhandled Exception:%s', (error))
     return "Error", 500
-
-
-if __name__ == '__main__':
-    app.run()
