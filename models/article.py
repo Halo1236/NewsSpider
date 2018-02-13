@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 from models import db
@@ -32,15 +32,24 @@ class Article(db.Model):
         return '<article_id %r>' % self.title
 
     def save(self):
-        db.session.add(self)
-        db.session.commit()
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except:
+            db.session.rollback()
         return self
 
     def delete(self):
-        db.session.delete(self)
-        db.session.commit()
+        try:
+            db.session.delete(self)
+            db.session.commit()
+        except:
+            db.session.rollback()
         return self
 
     def update(self):
-        db.session.commit()
+        try:
+            db.session.commit()
+        except:
+            db.session.rollback()
         return self

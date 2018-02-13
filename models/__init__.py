@@ -1,10 +1,9 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 from flask_sqlalchemy import SQLAlchemy
-from website import app
-import pymysql
-pymysql.install_as_MySQLdb()
+from website import *
+import MySQLdb
 db = SQLAlchemy(app)
 
 from models.topic import Topic

@@ -8,7 +8,7 @@ from pymongo import MongoClient
 
 from bs4 import BeautifulSoup as BS
 import urllib
-from lxml import , html
+from lxml import etree,html
 from lxml.etree import tostring
 import sys
 import time
@@ -33,7 +33,6 @@ class priceInformation(object):
     page = 1
     datas = []
     is_crawled = False
-
 
     def __init__(self):
         self.host = '127.0.0.1'

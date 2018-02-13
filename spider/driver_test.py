@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 from selenium import webdriver
@@ -6,3 +6,4 @@ from selenium import webdriver
 
 browser = webdriver.Chrome()
 browser.get('http://www.baidu.com/')
+browser.quit()

@@ -1,11 +1,11 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 DEBUG = True
 
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 
-SQLALCHEMY_DATABASE_URI = u'mysql://root:diaosi@localhost/sqccms?charset=utf8mb4'
+SQLALCHEMY_DATABASE_URI = u'mysql://root:diaosi@127.0.0.1/sqccms'
 
 SECRET_KEY = u'qweqewrwtrewtresafdsfs123'
 
