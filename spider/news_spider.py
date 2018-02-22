@@ -10,9 +10,9 @@ import MySQLdb
 import website
 from models import db
 from models.topic import Topic
+
 reload(sys)
 sys.setdefaultencoding("utf-8")
-
 
 MAIN_URL = u'http://www.sqc.edu.cn'
 
@@ -36,6 +36,9 @@ class News_spider(object):
         self.options = webdriver.ChromeOptions()
         self.options.add_experimental_option('prefs', self.prefs)
         self.driver = webdriver.Chrome(chrome_options=self.options)
+
+    # def __del__(self):
+    #     self.driver.quit()
 
     def start(self):
         # cursor = self.db.cursor()
@@ -72,10 +75,12 @@ class News_spider(object):
 
         for item in topic_item_td:
             print(etree.tostring(item))
-            title = item.xpath('//span/span[@class="link_16"]/a/@href')[0]
-            url = item.xpath('/span/span[@class="link_16"]/a/@href')[0]
-            publisher_time = item.xpath('/tr/span[@class="link_14"]')[0]
-            print(title+url+publisher_time)
+            url = item.xpath('span/span[@class="link_16"]/a/@href')[0].strip()
+            title = item.xpath('span/span[@class="link_16"]/a/text()')[0].strip()
+            publisher_time = item.xpath('span[@class="link_14"]/text()')[0].strip()
+            print(title + '\n' + url.encode('utf-8') + '\n' + publisher_time)
+            topic = Topic(title, url, publisher_time)
+            topic.save()
         if len(topic_item_td) < 14:
             return 0
         else:
