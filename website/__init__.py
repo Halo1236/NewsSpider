@@ -16,17 +16,13 @@ app.config.from_pyfile('config.py')
 app.secret_key = app.config['SECRET_KEY']
 
 # 记录日志
-handler = RotatingFileHandler('app.log', maxBytes=10000, backupCount=1)
+handler = RotatingFileHandler('app.log', maxBytes=10000, backupCount=7)
 handler.setFormatter(
     logging.Formatter(datefmt='%Y-%m-%d %H:%M:%S',
                       fmt='%(color)s[%(levelname)1.1s ' '%(asctime)s %(module)s:%(lineno)d]%(end_color)s %(message)s'))
 
+logger = logging.getLogger("spiderlogger")
 handler.setLevel(logging.WARNING)
-app.logger.addHandler(handler)
+logger.addHandler(handler)
 
 from website import router
-
-# from spider.news_spider import News_spider
-#
-# topic = News_spider()
-# topic.start()

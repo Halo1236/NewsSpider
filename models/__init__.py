@@ -10,6 +10,7 @@ db = SQLAlchemy(app)
 from models.topic import Topic
 from models.article import Article
 from models.user import User
+from models.site import Site
 
 
 def find_by_title(title, url):
@@ -28,3 +29,12 @@ def insert_topic_to_db(title, url, publisher_time, isnotice, belong):
 def insert_article_to_db(tite, publisher, publish_time, html_content, datas1, url):
     article = Article(tite, publisher, publish_time, html_content, datas1, url)
     article.save()
+
+
+def find_all_site():
+    site = Site.query.all()
+    # site = Site.query.filter_by(belong='sie')
+    if site is None:
+        return None
+    else:
+        return site

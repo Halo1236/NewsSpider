@@ -13,11 +13,11 @@ class Article(db.Model):
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     article_url = db.Column(db.String(100), unique=True, nullable=False, index=True)
-    title = db.Column(db.String(140), unique=True, nullable=False, index=True)
-    publish_time = db.Column(db.String(20), nullable=False, index=True)
-    publisher = db.Column(db.String(20), nullable=True)
-    imgurl = db.Column(db.String(100), nullable=True)
-    content = db.Column(db.Text(1600), nullable=False)
+    title = db.Column(db.String(100), unique=True, nullable=False, index=True)
+    publish_time = db.Column(db.String(100), nullable=False, index=True)
+    publisher = db.Column(db.String(100), nullable=True)
+    imgurl = db.Column(db.String(255), nullable=True)
+    content = db.Column(db.Text(4095), nullable=False)
     create_time = db.Column(db.DateTime, default=datetime.now, nullable=False)
 
     def __init__(self, title, publisher, publish_time, content, imgurl, url):
