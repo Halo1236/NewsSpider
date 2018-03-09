@@ -60,7 +60,7 @@ class Sqc_Spider(object):
                 if self.crawl_item(page_datas) == 1:
                     self.page += 1
                 else:
-                    sleep(6)
+                    sleep(3)
                     self.page = 1
 
     def closeall(self):
@@ -81,7 +81,7 @@ class Sqc_Spider(object):
 
             if find_by_title(title, MAIN_URL + url):
                 insert_topic_to_db(title, MAIN_URL + url, publish_time, False, 'sqc')
-                self.crawl_article(MAIN_URL + url)
+                self.crawl_article(MAIN_URL + url, publish_time)
             else:
                 return 0
 
@@ -90,7 +90,7 @@ class Sqc_Spider(object):
         else:
             return 1
 
-    def crawl_article(self, path):
+    def crawl_article(self, path, publish_time):
         print(path)
         self.driver.get(path)
         article_datas = self.driver.page_source
@@ -100,10 +100,7 @@ class Sqc_Spider(object):
             tite = arcticle_tree.xpath('//div[@id="s83407397_content"]//tr[1]//text()')[0]
             publisher = arcticle_tree.xpath(
                 '//div[@id="s83407397_content"]//tr[2]//text()')[0]
-            publish_time = arcticle_tree.xpath(
-                '//div[@id="s83407397_content"]//tr[2]//text()')[1]
             content = arcticle_tree.xpath('//div[@id="s83407397_content"]//tr')[3]
-
             htmlinfo = re.compile('src="')
             html_content = htmlinfo.sub('src="' + MAIN_URL, etree.tostring(content))
             print(tite)
