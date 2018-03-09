@@ -67,7 +67,7 @@ class Sie_Spider(object):
 
     def start(self):
         while True:
-            sleep(10)
+            sleep(5)
             all_site = find_all_site()
             if all_site is not None:
                 for site in all_site:
@@ -154,6 +154,8 @@ class Sie_Spider(object):
                 publisher = '艺术与传媒学院'
             elif self.data['belong'] == 'tyb':
                 publisher = '体育部'
+            else:
+                publisher = arcticle_tree.xpath('//div[@id="s83407397_content"]//tr[2]//text()')[0]
 
             content = arcticle_tree.xpath(self.data['content_xpath'])[3]
 
