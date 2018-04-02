@@ -11,11 +11,10 @@ from time import sleep
 from apscheduler.schedulers.background import BackgroundScheduler
 from lxml.etree import tostring, tostringlist
 import re
-import MySQLdb
-from models import db
+from website import *
 from models import *
 import gc
-from website import *
+
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
