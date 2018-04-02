@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from models import db
+from main.models import db
 
 
 class User(db.Model):

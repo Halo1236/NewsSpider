@@ -25,4 +25,4 @@ logger = logging.getLogger("spiderlogger")
 handler.setLevel(logging.WARNING)
 logger.addHandler(handler)
 
-from website import router
+from main.website import router

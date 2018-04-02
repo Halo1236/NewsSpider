@@ -1,33 +1,35 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from models import db
+from main.models import db
 from datetime import datetime
 
 
-class Topic(db.Model):
+class Article(db.Model):
     __table_args__ = {
         'mysql_engine': 'InnoDB',
         'mysql_charset': 'utf8mb4'
     }
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String(100), nullable=False, index=True)
-    belong = db.Column(db.String(20), default='sqc', index=True)
-    article_url = db.Column(db.String(180), unique=True, nullable=False)
-    publish_time = db.Column(db.String(100))
-    isnotice = db.Column(db.Boolean, default=False, nullable=True)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    article_url = db.Column(db.String(100), unique=True, nullable=False, index=True)
+    title = db.Column(db.String(100), unique=True, nullable=False, index=True)
+    publish_time = db.Column(db.String(100), nullable=False, index=True)
+    publisher = db.Column(db.String(100), nullable=True)
+    imgurl = db.Column(db.String(255), nullable=True)
+    content = db.Column(db.Text(4095), nullable=False)
     create_time = db.Column(db.DateTime, default=datetime.now, nullable=False)
 
-    def __init__(self, title, url, publish_time, isnotice, belong):
-        self.publish_time = publish_time
+    def __init__(self, title, publisher, publish_time, content, imgurl, url):
         self.title = title
         self.article_url = url
-        self.isnotice = isnotice
-        self.belong = belong
+        self.publisher = publisher
+        self.publish_time = publish_time
+        self.content = content
+        self.imgurl = imgurl
 
     def __repr__(self):
-        return '<topic_id %r>' % self.title
+        return '<article_id %r>' % self.title
 
     def save(self):
         try:

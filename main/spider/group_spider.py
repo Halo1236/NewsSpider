@@ -2,23 +2,17 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from pytz import utc
-from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR
 from apscheduler.executors.pool import ThreadPoolExecutor
 from selenium import webdriver
 from lxml import etree
 from time import sleep
-from apscheduler.schedulers.background import BackgroundScheduler
-from lxml.etree import tostring, tostringlist
 import re
-from website import *
-from models import *
+from main.website import *
+from main.models import *
 import gc
-
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
-
 
 job_defaults = {
     'coalesce': False,

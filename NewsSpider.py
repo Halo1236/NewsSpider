@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from website import app
+from main.website import app
 
 
 if __name__ == "__main__":

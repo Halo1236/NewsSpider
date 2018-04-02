@@ -4,8 +4,7 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from models import db
-from datetime import datetime
+from main.models import db
 
 
 class Site(db.Model):

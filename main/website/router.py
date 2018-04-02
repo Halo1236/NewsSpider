@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from models import *
+from main.models import *
 
 
 @app.route('/', methods=['GET', 'POST'])

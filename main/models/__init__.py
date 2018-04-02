@@ -2,15 +2,14 @@
 # -*- coding: utf-8 -*-
 
 from flask_sqlalchemy import SQLAlchemy
-from website import *
-import MySQLdb
+from main.website import *
 
 db = SQLAlchemy(app)
 
-from models.topic import Topic
-from models.article import Article
-from models.user import User
-from models.site import Site
+from main.models.topic import Topic
+from main.models.article import Article
+from main.models.user import User
+from main.models.site import Site
 
 
 def find_by_title(title, url):

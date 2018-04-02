@@ -5,14 +5,8 @@ import sys
 from selenium import webdriver
 from lxml import etree
 from time import sleep
-from lxml.etree import tostring, tostringlist
 import re
-import MySQLdb
-import website
-from models import db
-from models.topic import Topic
-from models import *
-from models.article import Article
+from main.models import *
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
