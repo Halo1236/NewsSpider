@@ -7,6 +7,7 @@ from selenium import webdriver
 from lxml import etree
 from time import sleep
 import re
+sys.path.append('/home/halo/NewsSpider')
 from main.website import *
 from main.models import *
 import gc
