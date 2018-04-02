@@ -20,6 +20,7 @@ from website import *
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
+
 job_defaults = {
     'coalesce': False,
     'max_instances': 3
@@ -60,7 +61,8 @@ class Sie_Spider(object):
         # self.db = MySQLdb.Connect("127.0.0.1", "root", "diaosi", "sqccms")
         self.options = webdriver.ChromeOptions()
         self.options.add_experimental_option('prefs', prefs)
-        self.driver = webdriver.Chrome(chrome_options=self.options)
+        # self.driver = webdriver.Chrome(chrome_options=self.options)
+        self.driver = webdriver.PhantomJS()
 
     # def __del__(self):
     #     self.driver.quit()
@@ -123,7 +125,6 @@ class Sie_Spider(object):
                 self.crawl_article(self.data['base_url'] + url, title, publish_time)
             else:
                 return 0
-
         if len(topic_item_td) < self.data['count']:
             return 0
         else:
