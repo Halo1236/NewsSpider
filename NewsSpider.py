@@ -3,7 +3,6 @@
 
 from main.website import app
 
-
 if __name__ == "__main__":
 
     app.debug = app.config['DEBUG']

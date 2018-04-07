@@ -16,13 +16,12 @@ app.config.from_pyfile('config.py')
 app.secret_key = app.config['SECRET_KEY']
 
 # 记录日志
-handler = RotatingFileHandler('app.log', maxBytes=10000, backupCount=7)
-handler.setFormatter(
-    logging.Formatter(datefmt='%Y-%m-%d %H:%M:%S',
-                      fmt='%(color)s[%(levelname)1.1s ' '%(asctime)s %(module)s:%(lineno)d]%(end_color)s %(message)s'))
+# logger = logging.getLogger("newslog")
+# handler = RotatingFileHandler('app.log', maxBytes=10000, backupCount=7)
+# handler.setLevel(logging.WARNING)
+# handler.setFormatter(
+#    logging.Formatter('[%(asctime)s] [%(levelname)s] %(message)s', '%Y-%m-%d %H:%M:%S'))
 
-logger = logging.getLogger("spiderlogger")
-handler.setLevel(logging.WARNING)
-logger.addHandler(handler)
+# logger.addHandler(handler)
 
 from main.website import router
