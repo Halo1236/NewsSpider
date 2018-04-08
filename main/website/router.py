@@ -11,11 +11,10 @@ def hello_world():
     return 'Hello World!'
 
 
-@app.route('/api/news/data/<limit>/<page>/json', methods=['GET'])
-def news_data(limit, page):
+@app.route('/api/article/data/<url>/json', methods=['GET'])
+def news_data(url=None):
     if request.method == 'GET':
-        if limit == '0' and page == '0':
-            print(limit)
+        if url == '' or url is None:
             return jsonify({'error': 'true', 'results': ''})
         else:
             return jsonify({'error': 'false', 'results': ''})
@@ -35,7 +34,19 @@ def news_data(limit, page):
         abort(404)
 
 
-@app.route('/api/login', methods=['GET', 'POST'])
+@app.route('/api/topic/data/<limit>/<page>/json', methods=['GET'])
+def news_data(limit, page):
+    if request.method == 'GET':
+        if limit == '0' and page == '0':
+            print(limit)
+            return jsonify({'error': 'true', 'results': ''})
+        else:
+            return jsonify({'error': 'false', 'results': ''})
+    else:
+        abort(404)
+
+
+@app.route('/api/login', methods=['POST'])
 def log_in():
     if request.method == 'POST':
         stu_id = request.form.get('userid', None)
@@ -48,8 +59,6 @@ def log_in():
             error = u'true'
         result = 'succeed' if error == 'false' else 'failed'
         return jsonify({'error': error, 'login': result})
-    elif request.method == 'GET':
-        return jsonify({'error': 'true', 'login': 'failed'})
     else:
         abort(404)
 

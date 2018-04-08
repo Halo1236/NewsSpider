@@ -37,3 +37,7 @@ def find_all_site():
         return None
     else:
         return site
+
+
+def check_login(username, password):
+    pass
