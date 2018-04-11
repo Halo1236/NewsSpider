@@ -5,7 +5,7 @@ DEBUG = True
 
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 
-SQLALCHEMY_DATABASE_URI = u'mysql://root:diaosi@127.0.0.1/sqccms'
+SQLALCHEMY_DATABASE_URI = u'mysql://root:diaosi@127.0.0.1:3306/sqccms'
 
 SECRET_KEY = u'qweqewrwtrewtresafdsfs123'
 

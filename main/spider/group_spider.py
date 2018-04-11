@@ -7,6 +7,7 @@ from selenium import webdriver
 from lxml import etree
 from time import sleep
 import re
+
 sys.path.append('/home/halo/NewsSpider')
 from main.website import *
 from main.models import *
@@ -55,8 +56,8 @@ class Sie_Spider(object):
         # self.db = MySQLdb.Connect("127.0.0.1", "root", "diaosi", "sqccms")
         self.options = webdriver.ChromeOptions()
         self.options.add_experimental_option('prefs', prefs)
-        # self.driver = webdriver.Chrome(chrome_options=self.options)
-        self.driver = webdriver.PhantomJS()
+        self.driver = webdriver.Chrome(chrome_options=self.options)
+        # self.driver = webdriver.PhantomJS()
 
     # def __del__(self):
     #     self.driver.quit()
@@ -110,7 +111,12 @@ class Sie_Spider(object):
             print(etree.tostring(item))
             url = item.xpath(self.data['url_xpath'])[0].strip()
             title = item.xpath(self.data['title_xpath'])[0].strip()
-            publish_time = item.xpath(self.data['time_xpath'])[0].strip()
+            tmp_time = item.xpath(self.data['time_xpath'])[0].strip()
+            re_time = re.findall(r'(?<=\[).*?(?=])', tmp_time)[0]
+            if re_time.startswith('20'):
+                publish_time = re_time
+            else:
+                publish_time = '20' + re_time
             print(title + '\n' + url.encode('utf-8') + '\n' + publish_time)
 
             if find_by_title(title, self.data['base_url'] + url):

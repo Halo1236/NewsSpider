@@ -4,6 +4,7 @@ from __future__ import absolute_import, unicode_literals
 
 from main.models import *
 from flask import render_template, request, abort, jsonify, session, redirect, url_for, send_from_directory
+import base64
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -12,11 +13,13 @@ def hello_world():
 
 
 @app.route('/api/article/data/<url>/json', methods=['GET'])
-def news_data(url=None):
+def article_data(url=None):
     if request.method == 'GET':
         if url == '' or url is None:
             return jsonify({'error': 'true', 'results': ''})
         else:
+            articles = select_article_url(base64.b64decode(url))
+            print(articles.content)
             return jsonify({'error': 'false', 'results': ''})
     else:
         abort(404)
@@ -34,13 +37,19 @@ def news_data(limit, page):
         abort(404)
 
 
-@app.route('/api/topic/data/<limit>/<page>/json', methods=['GET'])
-def news_data(limit, page):
+@app.route('/api/topic/data/<limit>/<page>/<isnotices>/json', methods=['GET'])
+def topic_data(limit, page, isnotices):
     if request.method == 'GET':
         if limit == '0' and page == '0':
-            print(limit)
             return jsonify({'error': 'true', 'results': ''})
         else:
+            topics = select_topic_limit(limit=int(limit), page=int(page) - 1, isnotices=isnotices)
+            if topics is not None:
+                for topic in topics:
+                    print(topic.title)
+                return jsonify({'error': 'false', 'results': '1'})
+            else:
+                return jsonify({'error': 'false', 'results': ''})
             return jsonify({'error': 'false', 'results': ''})
     else:
         abort(404)
