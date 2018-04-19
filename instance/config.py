@@ -12,3 +12,5 @@ SECRET_KEY = u'qweqewrwtrewtresafdsfs123'
 MAIN_URL = u'http://www.sqc.edu.cn'
 
 NEWS_PATH = u'/article-list-157-s52102500_start-%d.html'
+
+JSON_AS_ASCII = False

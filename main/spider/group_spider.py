@@ -158,7 +158,7 @@ class Sie_Spider(object):
             else:
                 publisher = arcticle_tree.xpath('//div[@id="s83407397_content"]//tr[2]//text()')[0]
 
-            content = arcticle_tree.xpath(self.data['content_xpath'])[3]
+            content = arcticle_tree.xpath(self.data['content_xpath'])[0]
 
             htmlinfo = re.compile('src="')
             html_content = htmlinfo.sub('src="' + self.data['base_url'], etree.tostring(content))

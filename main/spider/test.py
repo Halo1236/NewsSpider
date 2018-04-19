@@ -5,8 +5,9 @@ from __future__ import print_function
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.schedulers.blocking import BlockingScheduler
-import datetime
+from datetime import datetime
 import re
+import json
 
 # def my_job1():
 #     print('my_job1 is running, Now is %s' % datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
@@ -22,8 +23,11 @@ import re
 # sched.start()
 
 
-a = '17-01-01'
+a = {'1': datetime.now, '2': 2}
+list = []
+list.append(a)
+list.append(a)
+# q1 = re.findall(r'(?<=\[).*?(?=])', a)
 
-q1 = re.findall(r'(?<=\[).*?(?=])', a)
 
-print(a.startswith('17'))
+print(json.dumps(list))

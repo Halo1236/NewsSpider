@@ -1,7 +1,6 @@
 .idea
 *.pyc
 logs
-
 .DS_Store
 venv
 *.log

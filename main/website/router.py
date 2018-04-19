@@ -3,8 +3,9 @@
 from __future__ import absolute_import, unicode_literals
 
 from main.models import *
-from flask import render_template, request, abort, jsonify, session, redirect, url_for, send_from_directory
+from flask import render_template, request, abort, json, jsonify, session, redirect, url_for, send_from_directory
 import base64
+import datetime
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -19,8 +20,21 @@ def article_data(url=None):
             return jsonify({'error': 'true', 'results': ''})
         else:
             articles = select_article_url(base64.b64decode(url))
-            print(articles.content)
-            return jsonify({'error': 'false', 'results': ''})
+            if articles is not None:
+                dic = {
+                    'id': articles.id,
+                    'title': articles.title,
+                    'img_url': articles.imgurl,
+                    'article_url': articles.article_url,
+                    'publish_time': articles.publish_time,
+                    'publisher': articles.publisher,
+                    'content': articles.content,
+                    'create_time': articles.create_time.strftime('%Y-%m-%d %H:%M:%S'),
+                }
+                print(articles.content)
+                return jsonify({'error': 'false', 'results': dic})
+            else:
+                return jsonify({'error': 'true', 'results': ''})
     else:
         abort(404)
 
@@ -45,12 +59,21 @@ def topic_data(limit, page, isnotices):
         else:
             topics = select_topic_limit(limit=int(limit), page=int(page) - 1, isnotices=isnotices)
             if topics is not None:
-                for topic in topics:
-                    print(topic.title)
-                return jsonify({'error': 'false', 'results': '1'})
+                article_list = []
+                for topic_tmp in topics:
+                    dic = {
+                        'id': topic_tmp.id,
+                        'title': topic_tmp.title,
+                        'belong': topic_tmp.belong,
+                        'article_url': topic_tmp.article_url,
+                        'publish_time': topic_tmp.publish_time,
+                        'isnotice': topic_tmp.isnotice,
+                        'create_time': topic_tmp.create_time.strftime('%Y-%m-%d %H:%M:%S'),
+                    }
+                    article_list.append(dic)
+                return jsonify({'error': 'false', 'results': article_list})
             else:
                 return jsonify({'error': 'false', 'results': ''})
-            return jsonify({'error': 'false', 'results': ''})
     else:
         abort(404)
 
