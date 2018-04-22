@@ -13,7 +13,7 @@ class Article(db.Model):
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     article_url = db.Column(db.String(100), unique=True, nullable=False, index=True)
-    title = db.Column(db.String(100), unique=True, nullable=False, index=True)
+    title = db.Column(db.String(100), nullable=False, index=True)
     publish_time = db.Column(db.String(100), nullable=False, index=True)
     publisher = db.Column(db.String(100), nullable=True)
     imgurl = db.Column(db.String(255), nullable=True)

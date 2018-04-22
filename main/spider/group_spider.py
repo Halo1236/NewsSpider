@@ -56,8 +56,8 @@ class Sie_Spider(object):
         # self.db = MySQLdb.Connect("127.0.0.1", "root", "diaosi", "sqccms")
         self.options = webdriver.ChromeOptions()
         self.options.add_experimental_option('prefs', prefs)
-        self.driver = webdriver.Chrome(chrome_options=self.options)
-        # self.driver = webdriver.PhantomJS()
+        # self.driver = webdriver.Chrome(chrome_options=self.options)
+        self.driver = webdriver.PhantomJS()
 
     # def __del__(self):
     #     self.driver.quit()
