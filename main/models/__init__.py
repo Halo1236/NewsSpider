@@ -50,12 +50,18 @@ def select_topic_limit(limit, page, isnotices):
     return topics
 
 
-def check_login(username, password):
-    user = User.query.filter_by(username=username, password=password).first()
+def check_login(password, telephone):
+    user = User.query.filter_by(password=password, telephone=telephone).first()
     if user is not None:
-        if user.isadmin == 1:
-            return 1, True
-        else:
-            return 0, True
+        return True
     else:
-        return 0, False
+        return False
+
+
+def user_register(telephone, username, passsword, belong, xueid):
+    user = User(telephone=telephone, username=username, passsword=passsword, belong=belong, xueid=xueid)
+    user.save()
+    if user.id > 0:
+        return True
+    else:
+        return False

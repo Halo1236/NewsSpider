@@ -81,16 +81,32 @@ def topic_data(limit, page, isnotices):
 @app.route('/api/login', methods=['POST'])
 def log_in():
     if request.method == 'POST':
-        stu_id = request.form.get('userid', None)
-        stu_name = request.form.get('username', None)
-        session['userid'] = stu_id
-        session['username'] = stu_name
-        if check_login(stu_id, stu_name):
+        telephone = request.form.get('telephone', None)
+        password = request.form.get('password', None)
+        if check_login(password, telephone):
             error = 'false'
         else:
-            error = u'true'
+            error = 'true'
         result = 'succeed' if error == 'false' else 'failed'
         return jsonify({'error': error, 'login': result})
+    else:
+        abort(404)
+
+
+@app.route('/api/register', methods=['POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form.get('username', None)
+        password = request.form.get('password', None)
+        telephone = request.form.get('telephone', None)
+        xueid = request.form.get('xueid', None)
+        belong = request.form.get('belong', None)
+        if user_register(telephone, username, password, belong, xueid):
+            error = 'false'
+        else:
+            error = 'true'
+        result = 'succeed' if error == 'false' else 'failed'
+        return jsonify({'error': error, 'register': result})
     else:
         abort(404)
 

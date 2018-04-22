@@ -4,7 +4,7 @@
 from main.models import db
 
 
-class User(db.Model):
+class Friends(db.Model):
     __table_args__ = {
         'mysql_engine': 'InnoDB',
         'mysql_charset': 'utf8mb4'
@@ -12,21 +12,18 @@ class User(db.Model):
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     isadmin = db.Column(db.Integer, nullable=False, default=0, index=True)
-    telephone = db.Column(db.String(32), nullable=False, unique=True, index=True)
     username = db.Column(db.String(32), nullable=False, unique=True, index=True)
     password = db.Column(db.String(64), nullable=False)
     belong = db.Column(db.String(64), nullable=True)
-    xueid = db.Column(db.String(64), nullable=False, default='000000')
+    xueid = db.Column(db.String(32), nullable=False)
 
-    def __init__(self, telephone, username, passsword, belong, xueid):
-        self.telephone = telephone
+    def __init__(self, isadmin, username, passsword):
+        self.isadmin = isadmin
         self.username = username
         self.password = passsword
-        self.belong = belong
-        self.xueid = xueid
 
     def __repr__(self):
-        return '<user_id %r>' % self.id
+        return '<user_id %r>' % self.username
 
     def save(self):
         try:
