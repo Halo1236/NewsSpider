@@ -34,19 +34,7 @@ def article_data(url=None):
                 print(articles.content)
                 return jsonify({'error': 'false', 'results': dic})
             else:
-                return jsonify({'error': 'true', 'results': ''})
-    else:
-        abort(404)
-
-
-@app.route('/api/notices/data/<limit>/<page>/json', methods=['GET'])
-def news_data(limit, page):
-    if request.method == 'GET':
-        if limit == '0' and page == '0':
-            print(limit)
-            return jsonify({'error': 'true', 'results': ''})
-        else:
-            return jsonify({'error': 'false', 'results': ''})
+                return jsonify({'error': 'true', 'results': {}})
     else:
         abort(404)
 
@@ -55,7 +43,7 @@ def news_data(limit, page):
 def topic_data(limit, page, isnotices):
     if request.method == 'GET':
         if limit == '0' and page == '0':
-            return jsonify({'error': 'true', 'results': ''})
+            return jsonify({'error': 'true', 'results': {}})
         else:
             topics = select_topic_limit(limit=int(limit), page=int(page) - 1, isnotices=isnotices)
             if topics is not None:
@@ -73,7 +61,27 @@ def topic_data(limit, page, isnotices):
                     article_list.append(dic)
                 return jsonify({'error': 'false', 'results': article_list})
             else:
-                return jsonify({'error': 'false', 'results': ''})
+                return jsonify({'error': 'true', 'results': {}})
+    else:
+        abort(404)
+
+
+@app.route('/api/user/<telephone>/json', methods=['GET'])
+def user_data(telephone):
+    if request.method == 'GET':
+        if telephone is not None:
+            tmp_user = select_user(telephone)
+            if tmp_user is not None:
+                dic = {
+                    'id': tmp_user.id,
+                    'username': tmp_user.username,
+                    'telephone': tmp_user.telephone,
+                    'belong': tmp_user.belong,
+                    'xueid': tmp_user.xueid,
+                }
+                return jsonify({'error': 'false', 'results': dic})
+            else:
+                return jsonify({'error': 'true', 'results': {}})
     else:
         abort(404)
 
@@ -83,12 +91,13 @@ def log_in():
     if request.method == 'POST':
         telephone = request.form.get('telephone', None)
         password = request.form.get('password', None)
-        if check_login(password, telephone):
-            error = 'false'
-        else:
+        tmp_user = check_login(password, telephone)
+        if tmp_user is False:
             error = 'true'
+        else:
+            error = 'false'
         result = 'succeed' if error == 'false' else 'failed'
-        return jsonify({'error': error, 'login': result})
+        return jsonify({'error': error, 'results': result})
     else:
         abort(404)
 
@@ -106,7 +115,7 @@ def register():
         else:
             error = 'true'
         result = 'succeed' if error == 'false' else 'failed'
-        return jsonify({'error': error, 'register': result})
+        return jsonify({'error': error, 'results': result})
     else:
         abort(404)
 

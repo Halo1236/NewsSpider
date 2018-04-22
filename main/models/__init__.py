@@ -62,6 +62,11 @@ def user_register(telephone, username, passsword, belong, xueid):
     user = User(telephone=telephone, username=username, passsword=passsword, belong=belong, xueid=xueid)
     user.save()
     if user.id > 0:
-        return True
+        return user
     else:
         return False
+
+
+def select_user(telephone):
+    user = User.query.filter_by(telephone=telephone).first()
+    return user
