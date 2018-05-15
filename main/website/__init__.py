@@ -7,6 +7,7 @@ from logging.handlers import RotatingFileHandler
 
 from flask import Flask
 from werkzeug.contrib.fixers import ProxyFix
+from flask_socketio import SocketIO
 
 app = Flask(__name__, instance_relative_config=True)
 app.wsgi_app = ProxyFix(app.wsgi_app)
@@ -14,6 +15,7 @@ app.wsgi_app = ProxyFix(app.wsgi_app)
 # app.config.from_object('config')
 app.config.from_pyfile('config.py')
 app.secret_key = app.config['SECRET_KEY']
+socketio = SocketIO(app)
 
 # 记录日志
 # logger = logging.getLogger("newslog")

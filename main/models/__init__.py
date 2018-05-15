@@ -10,6 +10,7 @@ from main.models.topic import Topic
 from main.models.article import Article
 from main.models.user import User
 from main.models.site import Site
+from main.models.friends import Friends
 
 
 def find_by_title(title, url):
@@ -67,6 +68,42 @@ def user_register(telephone, username, passsword, belong, xueid):
         return False
 
 
+# 密码修改
+def user_update(id, passsword):
+    tmp = User.query.filter_by(id=id).first()
+    if tmp is None:
+        return False
+    else:
+        tmp.password = passsword
+        tmp.update()
+        return True
+
+
 def select_user(telephone):
     user = User.query.filter_by(telephone=telephone).first()
     return user
+
+
+def add_friend(userid, friend_tel):
+    user_tmp = select_user(friend_tel)
+    friend = Friends(userid, user_tmp.id, user_tmp.username, user_tmp.telephone, 1)
+    friend.save()
+    if friend.id > 0:
+        return True
+    else:
+        return False
+
+
+def select_friend(userid):
+    friend = Friends.query.filter_by(userid=userid).all()
+    return friend
+
+
+# 好友删除
+def delete_friend(friend_id):
+    friend = Friends.query.filter_by(friend_id=friend_id).first()
+    if friend is None:
+        return False
+    else:
+        friend.delete()
+        return True

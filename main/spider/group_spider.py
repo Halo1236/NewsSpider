@@ -56,8 +56,8 @@ class Sie_Spider(object):
         # self.db = MySQLdb.Connect("127.0.0.1", "root", "diaosi", "sqccms")
         self.options = webdriver.ChromeOptions()
         self.options.add_experimental_option('prefs', prefs)
-        # self.driver = webdriver.Chrome(chrome_options=self.options)
-        self.driver = webdriver.PhantomJS()
+        self.driver = webdriver.Chrome(chrome_options=self.options)
+        # self.driver = webdriver.PhantomJS()
 
     # def __del__(self):
     #     self.driver.quit()
@@ -65,6 +65,7 @@ class Sie_Spider(object):
     def start(self):
         while True:
             sleep(5)
+            # 读取所以的站点数据
             all_site = find_all_site()
             if all_site is not None:
                 for site in all_site:
@@ -80,6 +81,7 @@ class Sie_Spider(object):
                     self.data['count'] = site.count
                     self.data['url_xpath'] = site.url_xpath
                     print(self.data)
+                    # 爬取站点
                     self.crawl_sqc_all()
 
     def crawl_sqc_all(self):

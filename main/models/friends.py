@@ -11,19 +11,18 @@ class Friends(db.Model):
     }
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    isadmin = db.Column(db.Integer, nullable=False, default=0, index=True)
-    username = db.Column(db.String(32), nullable=False, unique=True, index=True)
-    password = db.Column(db.String(64), nullable=False)
-    belong = db.Column(db.String(64), nullable=True)
-    xueid = db.Column(db.String(32), nullable=False)
+    userid = db.Column(db.Integer, nullable=False, index=True)
+    friend_id = db.Column(db.Integer, index=True)
+    friend_name = db.Column(db.String(32))
+    friend_tel = db.Column(db.String(32), index=True)
+    state = db.Column(db.Integer, default=1, nullable=False)
 
-    def __init__(self, isadmin, username, passsword):
-        self.isadmin = isadmin
-        self.username = username
-        self.password = passsword
-
-    def __repr__(self):
-        return '<user_id %r>' % self.username
+    def __init__(self, userid, friendid, friendname, friend_tel, state):
+        self.userid = userid
+        self.friend_tel = friend_tel
+        self.friend_id = friendid
+        self.friend_name = friendname
+        self.state = state
 
     def save(self):
         try:
