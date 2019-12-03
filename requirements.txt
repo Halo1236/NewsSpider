@@ -22,4 +22,4 @@ selenium==3.9.0
 six==1.11.0
 SQLAlchemy==1.2.2
 tzlocal==1.5.1
-Werkzeug==0.14.1
+Werkzeug==0.15.3
