@@ -3,7 +3,7 @@ beautifulsoup4==4.6.0
 click==6.7
 enum34==1.1.6
 eventlet==0.23.0
-Flask==0.12.2
+Flask==1.0
 Flask-SocketIO==3.0.0
 Flask-SQLAlchemy==2.3.2
 funcsigs==1.0.2
